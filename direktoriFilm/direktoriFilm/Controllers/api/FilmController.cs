@@ -9,6 +9,7 @@ using direktoriFilm.Data;
 using direktoriFilm.Models;
 using direktoriFilm.Services.LOCAL;
 using direktoriFilm.Services.MLM;
+using direktoriFilm.Services.MSC;
 
 namespace direktoriFilm.Controllers.api
 {
@@ -19,19 +20,22 @@ namespace direktoriFilm.Controllers.api
         private readonly ApplicationDbContext _context;
         private readonly IRepository _repository;
         private readonly IStorage _storage;
+        private readonly IBox _box;
 
-        public FilmController(ApplicationDbContext context, IRepository repository, IStorage storage)
+        public FilmController(ApplicationDbContext context, IRepository repository, IStorage storage, IBox box)
         {
             _context = context;
             _repository = repository;
             _storage = storage;
+            _box = box;
         }
 
         // GET: api/Film
         [HttpGet]
         public IEnumerable<Film> GetFilm()
         {
-            return _storage.GetSemuaFilm();
+            return _box.GetSemuaFilm();
+           // return _storage.GetSemuaFilm();
            // return _repository.GetSemuaFilm();
            // return _context.Film;
         }

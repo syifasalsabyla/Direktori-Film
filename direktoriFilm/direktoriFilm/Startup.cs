@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using direktoriFilm.Services.LOCAL;
 using direktoriFilm.Services.MLM;
+using direktoriFilm.Services.MSC;
 
 namespace direktoriFilm
 {
@@ -43,6 +44,7 @@ namespace direktoriFilm
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<IStorage, Storage>();
+            services.AddTransient<IBox, Box>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
