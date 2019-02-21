@@ -25,24 +25,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.filmID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.filmID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.filmID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.filmID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.filmID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.filmID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -64,3 +65,61 @@
         </table>
     </div>
 </div>
+
+@section Scripts{
+
+    <script>
+
+
+        $(document).ready(function () {
+            GetTable()
+            $('#table_id').DataTable();
+
+        });
+
+
+        function GetTable() {
+            $.ajax({
+                type: 'GET',
+                crossDomain: true,
+                url: '/api/Film',
+                success: function (data) {
+                    console.log(data);
+                    var table = $('#id_table').DataTable()
+                    table.destroy();
+                    $('#id_table').DataTable({
+                        'paging': true,
+                        'lengthChange': false,
+                        'searching': true,
+                        'ordering': true,
+                        'info': true,
+                        'scrollX': true,
+                        'scrollY': 200,
+                        'scrollCollapse': true,
+                        'data': data,
+                        'columns': [{ data: 'filmID' },
+                        { data: 'name' },
+                        { data: 'genre' },
+                        { data: 'year' }
+                        {
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-warning" href="/Film/details/' + full.filmID + '">Detail</a>'; }
+                        },
+                        {
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/Film/edit/' + full.filmID + '">Edit</a>'; }
+                        },
+                        {
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-danger" href="/Film/delete/' + full.filmID + '">Delete</a>'; }
+                        },
+                        ],
+
+                        "pagingType": "full_numbers",
+                        language: {
+                            search: "_INPUT_",
+                            searchPlaceholder: "Search records",
+                        }
+                    })
+                }
+            })
+    }
+    </script>
+    }
