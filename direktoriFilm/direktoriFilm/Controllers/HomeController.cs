@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using direktoriFilm.Models;
-
+//test
 namespace direktoriFilm.Controllers
 {
     public class HomeController : Controller
