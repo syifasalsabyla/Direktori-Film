@@ -10,7 +10,7 @@ using direktoriFilm.Models;
 
 namespace direktoriFilm.Controllers.api
 {
-    [Route("api/Film")]
+    [Route("api/film")]
     [ApiController]
     public class FilmController : ControllerBase
     {

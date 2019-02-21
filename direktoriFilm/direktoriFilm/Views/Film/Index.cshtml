@@ -57,8 +57,8 @@
                     <th>Name</th>
                     <th>Genre</th>
                     <th>Year</th>
-                    <th>Detail</th>
-                    <th>Update</th>
+                    <th>Details</th>
+                    <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -82,7 +82,7 @@
             $.ajax({
                 type: 'GET',
                 crossDomain: true,
-                url: '/api/Film',
+                url: '/api/film',
                 success: function (data) {
                     console.log(data);
                     var table = $('#id_table').DataTable()
@@ -100,15 +100,15 @@
                         'columns': [{ data: 'filmID' },
                         { data: 'name' },
                         { data: 'genre' },
-                        { data: 'year' }
+                        { data: 'year' },
                         {
-                            "render": function (data, type, full, meta) { return '<a class="btn btn-warning" href="/Film/details/' + full.filmID + '">Detail</a>'; }
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-warning" href="/film/details/' + full.filmID + '">Details</a>'; }
                         },
                         {
-                            "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/Film/edit/' + full.filmID + '">Edit</a>'; }
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/film/edit/' + full.filmID + '">Edit</a>'; }
                         },
                         {
-                            "render": function (data, type, full, meta) { return '<a class="btn btn-danger" href="/Film/delete/' + full.filmID + '">Delete</a>'; }
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-danger" href="/film/delete/' + full.filmID + '">Delete</a>'; }
                         },
                         ],
 
