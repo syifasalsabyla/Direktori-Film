@@ -22,7 +22,10 @@ namespace direktoriFilm.Controllers
         // GET: Film
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Film.ToListAsync());
+            List<Film> hasil = new List<Film>();
+            hasil = _context.Film.FromSql<Film>("exec selectFilm").ToList();
+            return View(hasil);
+            //format awalnya jadikan komentar //return View(await _context.Film.ToListAsync());
         }
 
         // GET: Film/Details/5
