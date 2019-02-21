@@ -13,6 +13,7 @@ using direktoriFilm.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using direktoriFilm.Services.LOCAL;
+using direktoriFilm.Services.MLM;
 
 namespace direktoriFilm
 {
@@ -41,6 +42,7 @@ namespace direktoriFilm
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IStorage, Storage>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

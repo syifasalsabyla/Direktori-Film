@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using direktoriFilm.Data;
 using direktoriFilm.Models;
 using direktoriFilm.Services.LOCAL;
+using direktoriFilm.Services.MLM;
 
 namespace direktoriFilm.Controllers.api
 {
@@ -17,18 +18,21 @@ namespace direktoriFilm.Controllers.api
     {
         private readonly ApplicationDbContext _context;
         private readonly IRepository _repository;
+        private readonly IStorage _storage;
 
-        public FilmController(ApplicationDbContext context, IRepository repository)
+        public FilmController(ApplicationDbContext context, IRepository repository, IStorage storage)
         {
             _context = context;
             _repository = repository;
+            _storage = storage;
         }
 
         // GET: api/Film
         [HttpGet]
         public IEnumerable<Film> GetFilm()
         {
-            return _repository.GetSemuaFilm();
+            return _storage.GetSemuaFilm();
+           // return _repository.GetSemuaFilm();
            // return _context.Film;
         }
 
