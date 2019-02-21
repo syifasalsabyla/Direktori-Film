@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using direktoriFilm.Data;
 using direktoriFilm.Models;
-using direktoriFilm.Services.LOCAL;
 
 namespace direktoriFilm.Controllers.api
 {
@@ -16,20 +15,17 @@ namespace direktoriFilm.Controllers.api
     public class FilmController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly IRepository _repository;
 
-        public FilmController(ApplicationDbContext context, IRepository repository)
+        public FilmController(ApplicationDbContext context)
         {
             _context = context;
-            _repository = repository;
         }
 
         // GET: api/Film
         [HttpGet]
         public IEnumerable<Film> GetFilm()
         {
-            return _repository.GetSemuaFilm();
-            //return _context.Film;
+            return _context.Film;
         }
 
         // GET: api/Film/5

@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using direktoriFilm.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using direktoriFilm.Services.LOCAL;
 
 namespace direktoriFilm
 {
@@ -40,8 +39,6 @@ namespace direktoriFilm
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            services.AddTransient<IRepository, Repository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
