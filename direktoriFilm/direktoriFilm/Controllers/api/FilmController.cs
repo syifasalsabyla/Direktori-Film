@@ -56,7 +56,7 @@ namespace direktoriFilm.Controllers.api
                 return BadRequest(ModelState);
             }
 
-            if (id != film.filmID)
+            if (id != film.FilmId)
             {
                 return BadRequest();
             }
@@ -94,7 +94,7 @@ namespace direktoriFilm.Controllers.api
             _context.Film.Add(film);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFilm", new { id = film.filmID }, film);
+            return CreatedAtAction("GetFilm", new { id = film.FilmId }, film);
         }
 
         // DELETE: api/Film/5
@@ -120,7 +120,7 @@ namespace direktoriFilm.Controllers.api
 
         private bool FilmExists(int id)
         {
-            return _context.Film.Any(e => e.filmID == id);
+            return _context.Film.Any(e => e.FilmId == id);
         }
     }
 }

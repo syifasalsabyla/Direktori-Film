@@ -22,7 +22,7 @@ namespace direktoriFilm.Controllers
         // GET: Film
         public async Task<IActionResult> Index()
         {
-            List<Film> hasil = new List<Film>();
+            List <Film> hasil = new List<Film>();
             hasil = _context.Film.FromSql<Film>("exec selectFilm").ToList();
             return View(hasil);
             //format awalnya jadikan komentar //return View(await _context.Film.ToListAsync());
@@ -37,7 +37,7 @@ namespace direktoriFilm.Controllers
             }
 
             var film = await _context.Film
-                .FirstOrDefaultAsync(m => m.filmID == id);
+                .FirstOrDefaultAsync(m => m.FilmId == id);
             if (film == null)
             {
                 return NotFound();
@@ -91,7 +91,7 @@ namespace direktoriFilm.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("filmID,Name,Genre,Year")] Film film)
         {
-            if (id != film.filmID)
+            if (id != film.FilmId)
             {
                 return NotFound();
             }
@@ -105,7 +105,7 @@ namespace direktoriFilm.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FilmExists(film.filmID))
+                    if (!FilmExists(film.FilmId))
                     {
                         return NotFound();
                     }
@@ -128,7 +128,7 @@ namespace direktoriFilm.Controllers
             }
 
             var film = await _context.Film
-                .FirstOrDefaultAsync(m => m.filmID == id);
+                .FirstOrDefaultAsync(m => m.FilmId == id);
             if (film == null)
             {
                 return NotFound();
@@ -150,7 +150,7 @@ namespace direktoriFilm.Controllers
 
         private bool FilmExists(int id)
         {
-            return _context.Film.Any(e => e.filmID == id);
+            return _context.Film.Any(e => e.FilmId == id);
         }
     }
 }

@@ -38,9 +38,9 @@
                     @Html.DisplayFor(modelItem => item.Year)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.filmID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.filmID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.filmID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.FilmId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.FilmId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FilmId">Delete</a>
                 </td>
             </tr>
         }
@@ -53,7 +53,7 @@
         <table id="id_table" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>filmID</th>
+                    <th>FilmId</th>
                     <th>Name</th>
                     <th>Genre</th>
                     <th>Year</th>
@@ -97,18 +97,18 @@
                         'scrollY': 200,
                         'scrollCollapse': true,
                         'data': data,
-                        'columns': [{ data: 'filmID' },
+                        'columns': [{ data: 'filmId' },
                         { data: 'name' },
                         { data: 'genre' },
                         { data: 'year' },
                         {
-                            "render": function (data, type, full, meta) { return '<a class="btn btn-warning" href="/film/details/' + full.filmID + '">Details</a>'; }
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-warning" href="/Film/details/' + full.filmId + '">Details</a>'; }
                         },
                         {
-                            "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/film/edit/' + full.filmID + '">Edit</a>'; }
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/Film/edit/' + full.filmId + '">Edit</a>'; }
                         },
                         {
-                            "render": function (data, type, full, meta) { return '<a class="btn btn-danger" href="/film/delete/' + full.filmID + '">Delete</a>'; }
+                            "render": function (data, type, full, meta) { return '<a class="btn btn-danger" href="/Film/delete/' + full.filmId + '">Delete</a>'; }
                         },
                         ],
 

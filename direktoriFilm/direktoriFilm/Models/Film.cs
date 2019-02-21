@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace direktoriFilm.Models
 {
-    public class Film
+    public partial class Film
     {
-        public int filmID { get; set; }
+        public int FilmId { get; set; }
         public string Name { get; set; }
         public string Genre { get; set; }
         public int Year { get; set; }
