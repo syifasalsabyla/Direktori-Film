@@ -1,2 +1,3 @@
 # Direktori-Film
-Aplikasi direktori film dibuat dengan ASP.net Core
+Aplikasi Direktori Film dibuat dengan ASP.net Core, JQuery, API, Stored Procedure
+---[CRUD, MSSMS]
