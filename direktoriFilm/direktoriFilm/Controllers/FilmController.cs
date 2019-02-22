@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using direktoriFilm.Data;
 using direktoriFilm.Models;
+using System.Data.SqlClient;
 
 namespace direktoriFilm.Controllers
 {
@@ -22,9 +23,9 @@ namespace direktoriFilm.Controllers
         // GET: Film
         public async Task<IActionResult> Index()
         {
-            List <Film> hasil = new List<Film>();
-            hasil = _context.Film.FromSql<Film>("exec selectFilm").ToList();
-            return View(hasil);
+            List <Film> hasilSelect = new List<Film>();
+            hasilSelect = _context.Film.FromSql<Film>("exec selectFilm").ToList();
+            return View(hasilSelect);
             //format awalnya jadikan komentar //return View(await _context.Film.ToListAsync());
         }
 
@@ -49,6 +50,10 @@ namespace direktoriFilm.Controllers
         // GET: Film/Create
         public IActionResult Create()
         {
+
+           // List<Film> hasilInsert = new List<Film>();
+           // hasilInsert = _context.Film.FromSql<Film>("exec insertFilm").ToList();
+            //return View(hasilInsert);
             return View();
         }
 
@@ -57,16 +62,30 @@ namespace direktoriFilm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("filmID,Name,Genre,Year")] Film film)
+        public async Task<IActionResult> Create([Bind("FilmId,Name,Genre,Year")] Film film)
+           // public async Task<IActionResult> Edit(int id, [Bind("filmID,Name,Genre,Year")] Film film)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(film);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.Database.ExecuteSqlCommand("exec updateFilm @FilmId,@Name,@Genre,@Year",
+                  new SqlParameter("FilmId", film.FilmId),
+                  new SqlParameter("Name", film.Name),
+                  new SqlParameter("Genre", film.Genre),
+                  new SqlParameter("Year", film.Year));
+
+                return RedirectToAction("Index");
             }
             return View(film);
         }
+        ////{
+        ////    if (ModelState.IsValid)
+        ////    {
+        ////        _context.Add(film);
+        ////        await _context.SaveChangesAsync();
+        ////        return RedirectToAction(nameof(Index));
+        ////    }
+        ////    return View(film);
+        ////}
 
         // GET: Film/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -82,6 +101,9 @@ namespace direktoriFilm.Controllers
                 return NotFound();
             }
             return View(film);
+            //List<Film> hasilUpdate = new List<Film>();
+            //hasilUpdate = _context.Film.FromSql<Film>("exec updateFilm").ToList();
+            //return View(hasilUpdate);
         }
 
         // POST: Film/Edit/5
@@ -89,7 +111,7 @@ namespace direktoriFilm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("filmID,Name,Genre,Year")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("FilmId,Name,Genre,Year")] Film film)
         {
             if (id != film.FilmId)
             {
@@ -134,6 +156,13 @@ namespace direktoriFilm.Controllers
                 return NotFound();
             }
 
+            //this.Film.SqlQuery<Film>("exec deleteFilm @FilmId , @Name, @Genre, @Year", filmID, Name, Genre, Year);
+            //List<Film> hasilDelete = new List<Film>();
+            //hasilDelete = _context.Film.FromSql<Film>("exec deleteFilm").ToList();
+            //return View(hasilDelete);
+            //FilmController db = FilmController baru();
+            //IList<Film> empSummary = db.FilmController.SqlQuery<Film>("deleteFilm").ToList();
+            //_context.Film.FromSql("deleteFilm").ToList();
             return View(film);
         }
 
