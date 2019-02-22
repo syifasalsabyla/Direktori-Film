@@ -62,13 +62,12 @@ namespace direktoriFilm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FilmId,Name,Genre,Year")] Film film)
+        public async Task<IActionResult> Create([Bind("Name,Genre,Year")] Film film)
            // public async Task<IActionResult> Edit(int id, [Bind("filmID,Name,Genre,Year")] Film film)
         {
             if (ModelState.IsValid)
             {
-                _context.Database.ExecuteSqlCommand("exec updateFilm @FilmId,@Name,@Genre,@Year",
-                  new SqlParameter("FilmId", film.FilmId),
+                _context.Database.ExecuteSqlCommand("exec updateFilm @Name,@Genre,@Year",
                   new SqlParameter("Name", film.Name),
                   new SqlParameter("Genre", film.Genre),
                   new SqlParameter("Year", film.Year));
@@ -120,22 +119,12 @@ namespace direktoriFilm.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(film);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FilmExists(film.FilmId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _context.Database.ExecuteSqlCommand("exec updateFilm @FilmId,@Name,@Genre,@Year",
+                 new SqlParameter("FilmId", film.FilmId),
+                 new SqlParameter("Name", film.Name),
+                 new SqlParameter("Genre", film.Genre),
+                 new SqlParameter("Year", film.Year));
+
                 return RedirectToAction(nameof(Index));
             }
             return View(film);
@@ -171,9 +160,11 @@ namespace direktoriFilm.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var film = await _context.Film.FindAsync(id);
-            _context.Film.Remove(film);
-            await _context.SaveChangesAsync();
+            _context.Database.ExecuteSqlCommand("exec deleteFilm @FilmId",
+                    new SqlParameter("FilmId", id));
+           // var film = await _context.Film.FindAsync(id);
+          //  _context.Film.Remove(film);
+           // await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
