@@ -55,7 +55,8 @@ namespace direktoriFilm.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Genre = table.Column<string>(nullable: true),
-                    Year = table.Column<int>(nullable: false)
+                    Year = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

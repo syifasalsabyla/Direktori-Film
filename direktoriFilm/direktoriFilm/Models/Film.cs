@@ -12,5 +12,6 @@ namespace direktoriFilm.Models
         public string Name { get; set; }
         public string Genre { get; set; }
         public int Year { get; set; }
+        public DateTime Date { get; set; }
     }
 }

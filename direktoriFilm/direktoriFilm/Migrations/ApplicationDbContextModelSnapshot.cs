@@ -31,6 +31,8 @@ namespace direktoriFilm.Migrations
 
                     b.Property<int>("Year");
 
+                    b.Property<int>("Date");
+
                     b.HasKey("filmID");
 
                     b.ToTable("Film");

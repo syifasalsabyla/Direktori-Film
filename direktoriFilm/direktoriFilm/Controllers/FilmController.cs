@@ -67,7 +67,7 @@ namespace direktoriFilm.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Database.ExecuteSqlCommand("exec updateFilm @Name,@Genre,@Year",
+                _context.Database.ExecuteSqlCommand("exec insertFilm @Name,@Genre,@Year",
                   new SqlParameter("Name", film.Name),
                   new SqlParameter("Genre", film.Genre),
                   new SqlParameter("Year", film.Year));
