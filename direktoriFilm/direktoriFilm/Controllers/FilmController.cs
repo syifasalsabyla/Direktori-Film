@@ -62,15 +62,16 @@ namespace direktoriFilm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Genre,Year")] Film film)
+        public async Task<IActionResult> Create([Bind("Name,Genre,Year,Date")] Film film)
            // public async Task<IActionResult> Edit(int id, [Bind("filmID,Name,Genre,Year")] Film film)
         {
             if (ModelState.IsValid)
             {
-                _context.Database.ExecuteSqlCommand("exec insertFilm @Name,@Genre,@Year",
+                _context.Database.ExecuteSqlCommand("exec insertFilm @Name,@Genre,@Year,@Date",
                   new SqlParameter("Name", film.Name),
                   new SqlParameter("Genre", film.Genre),
-                  new SqlParameter("Year", film.Year));
+                  new SqlParameter("Year", film.Year),
+                  new SqlParameter("Date", film.Date));
 
                 return RedirectToAction("Index");
             }
@@ -110,7 +111,7 @@ namespace direktoriFilm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FilmId,Name,Genre,Year")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("FilmId,Name,Genre,Year,Date")] Film film)
         {
             if (id != film.FilmId)
             {
@@ -119,11 +120,12 @@ namespace direktoriFilm.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Database.ExecuteSqlCommand("exec updateFilm @FilmId,@Name,@Genre,@Year",
+                _context.Database.ExecuteSqlCommand("exec updateFilm @FilmId,@Name,@Genre,@Year,@Date",
                  new SqlParameter("FilmId", film.FilmId),
                  new SqlParameter("Name", film.Name),
                  new SqlParameter("Genre", film.Genre),
-                 new SqlParameter("Year", film.Year));
+                 new SqlParameter("Year", film.Year),
+                 new SqlParameter("Date", film.Date));
 
                 return RedirectToAction(nameof(Index));
             }
